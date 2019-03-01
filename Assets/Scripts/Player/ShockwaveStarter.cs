@@ -55,7 +55,7 @@ public class ShockwaveStarter : MonoBehaviour {
 
             if (m_hit.collider.tag == "Ground") {
 
-                m_target = m_hit.point + (Vector3.up * m_heightCorrection); //to prevent shockwaves from actually launching the ball upwards
+                m_target = m_hit.point + (Vector3.up * m_heightCorrection); //to prevent shockwaves from launching the ball upwards
 
                 m_shockInstance = GameObject.Instantiate(m_shockwave, m_target, Quaternion.identity) as GameObject;
             }

@@ -61,7 +61,8 @@ public class ShockwaveBehavior : MonoBehaviour {
     void Expand() {
 
         this.gameObject.transform.localScale += Vector3.one * m_expansion;
-        m_forceFactor = this.gameObject.transform.localScale.magnitude / m_maxDist;
+
+        m_forceFactor = (m_maxDist - this.gameObject.transform.localScale.magnitude) / m_maxDist;
     }
 
     void Fade() {

@@ -20,13 +20,13 @@ public class EndpointBehavior : MonoBehaviour
         
     }
 
-    void OnCollisionEnter(Collision collision) {
+    void OnTriggerEnter(Collider other) {
 
-        if (collision.gameObject.name == "Ball") m_reached = true;
+        if (other.gameObject.name == "Ball") m_reached = true;
     }
 
-    void OnCollisionExit(Collision collision) {
+    void OnTriggerExit(Collider other) {
 
-        if (collision.gameObject.name == "Ball") m_reached = false;
+        if (other.gameObject.name == "Ball") m_reached = false;
     }
 }
