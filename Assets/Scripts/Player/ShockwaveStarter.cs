@@ -17,7 +17,10 @@ public class ShockwaveStarter : MonoBehaviour {
 
     private RaycastHit m_hit;
     private Ray m_ray;
-    private Vector3 m_target = Vector3.zero;    
+
+    [SerializeField] private float m_heightCorrection;
+                     private Vector3 m_target = Vector3.zero;    
+    
 
     void Awake() {
 
@@ -52,7 +55,7 @@ public class ShockwaveStarter : MonoBehaviour {
 
             if (m_hit.collider.tag == "Ground") {
 
-                m_target = m_hit.point + Vector3.up; //to prevent shockwaves from actually launching the ball upwards
+                m_target = m_hit.point + (Vector3.up * m_heightCorrection); //to prevent shockwaves from actually launching the ball upwards
 
                 m_shockInstance = GameObject.Instantiate(m_shockwave, m_target, Quaternion.identity) as GameObject;
             }

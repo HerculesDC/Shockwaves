@@ -70,6 +70,7 @@
     <Compile Include="Assets\Scripts\Managers\SoundManager.cs" />
     <Compile Include="Assets\Scripts\Managers\UIManager.cs" />
     <Compile Include="Assets\Scripts\Other\EndpointBehavior.cs" />
+    <Compile Include="Assets\Scripts\Player\ArrowBehavior.cs" />
     <Compile Include="Assets\Scripts\Player\ShockwaveBehavior.cs" />
     <Compile Include="Assets\Scripts\Player\ShockwaveStarter.cs" />
     <Compile Include="Assets\Scripts\Player\SphereBehavior.cs" />

@@ -2,77 +2,94 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShockwaveBehavior : MonoBehaviour
-{
-    private ShockWaveTypes m_type;
+public class ShockwaveBehavior : MonoBehaviour {
+
+    [SerializeField] private ShockWaveTypes m_type;
 
     [SerializeField] private float m_maxForce;
-    [SerializeField] private float m_maxDist;
+    
     [SerializeField] private float m_expansion;
+    [SerializeField] private float m_expansionToFade;
+
+    [SerializeField] private float m_maxDist; //seralized for visualization
+    [SerializeField] private float m_forceFactor; //serialized for visualization
 
     //Reminder: Materials can only be retrieved through the renderer.
     private Material m_material;
         private Color m_color = Color.black;
-        private float m_alpha = 0.0f;
+        private float m_alpha = 1.0f;
 
     [SerializeField] private GameObject target;
                      private Rigidbody target_rb = null;
-
-    [SerializeField] private float m_forceFactor; //serialized for visualization
-
-    Ray ray;
+    private Vector3 distance;
+    private bool hit;
 
     void Awake() {
 
-        //GameObject.Destroy(this.gameObject);
-
         m_type = ShockWaveTypes.STANDARD;
+
+        this.gameObject.transform.localScale = Vector3.zero;
 
         m_material = this.gameObject.GetComponent<Renderer>().material;
             m_color = m_material.color;
             m_alpha = m_color.a;
+
+        target = GameObject.Find("Ball");
+
+        m_maxDist = 1 / (m_expansion);
+
+        distance = Vector3.zero;
+        hit = false;
     }
 
     // Start is called before the first frame update
-    void Start()
-    {
-       
-        RaycastHit hit;
+    void Start() {
 
-        if (target) {
-
-            target_rb = target.GetComponent<Rigidbody>();
-
-            ray.direction = target.transform.position - this.gameObject.transform.position;
-            ray.origin = this.gameObject.transform.position;
-            
-            if (Physics.Raycast(ray, out hit, m_maxDist)) {
-
-                m_forceFactor = hit.distance / m_maxDist;
-
-                ray.direction.Normalize();
-                //Debug.Log(hit.distance/ m_expansion);
-                //StartCoroutine(StrikeBall(hit.distance));
-            }
-        }
+        if (!target) target = GameObject.Find("Ball");
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        this.gameObject.transform.localScale *= 1 + m_expansion;
-        /*
+    void Update() {
+
         if (m_color.a <= 0) Destroy(this.gameObject);
 
-        m_alpha -= m_expansion;
-            m_color.a = m_alpha;
-            m_material.color = m_color;
-         */
+        Expand();
+        Detect();
+        Fade();
     }
 
-    IEnumerator StrikeBall(float distance) {
+    void Expand() {
 
-        yield return new WaitForSeconds(distance/m_expansion);
-        target_rb.AddForce((ray.direction - this.gameObject.transform.position) * m_maxForce * distance / m_maxDist);
+        this.gameObject.transform.localScale += Vector3.one * m_expansion;
+        m_forceFactor = this.gameObject.transform.localScale.magnitude / m_maxDist;
+    }
+
+    void Fade() {
+
+        m_alpha -= m_expansion * m_expansionToFade;
+            m_color.a = m_alpha;
+            m_material.color = m_color;
+    }
+
+    void Detect() {
+
+        if (target) {
+
+            distance = target.transform.position - this.gameObject.transform.position;
+            target_rb = target.GetComponent<Rigidbody>();
+
+            //IMPORTANT: USING X AXIS TO REPRESENT RADIUS, ASSUMING A SPHERICAL SHOCKWAVE!!!
+            if ((distance.sqrMagnitude <= (this.transform.localScale.x)) && !hit ) hit = Hit();
+        }
+    }
+
+    bool Hit() {
+
+        Vector3 direction = distance;
+            direction.Normalize();
+
+        target_rb.AddForce(direction * m_maxForce * m_forceFactor);
+
+        return true;
     }
 }
