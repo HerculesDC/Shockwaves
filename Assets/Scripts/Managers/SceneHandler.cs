@@ -34,8 +34,10 @@ public class SceneHandler : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
+        currentScene = this.gameObject.scene;
         sceneTracker = (Scenes)currentScene.buildIndex;
     }
 
-    public void ChangeScene(Scenes targetScene) { SceneManager.LoadScene((int)targetScene); }
+    public void RequestSceneChange(Scenes targetScene) { SceneManager.LoadScene((int)targetScene); }
 }

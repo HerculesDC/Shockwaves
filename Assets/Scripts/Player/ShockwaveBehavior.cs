@@ -21,6 +21,7 @@ public class ShockwaveBehavior : MonoBehaviour {
 
     [SerializeField] private GameObject target;
                      private Rigidbody target_rb = null;
+
     private Vector3 distance;
     private bool hit;
 
@@ -36,7 +37,7 @@ public class ShockwaveBehavior : MonoBehaviour {
 
         target = GameObject.Find("Ball");
 
-        m_maxDist = 1 / (m_expansion);
+        m_maxDist = (m_expansion + m_expansionToFade) / m_expansion;
 
         distance = Vector3.zero;
         hit = false;
@@ -49,9 +50,10 @@ public class ShockwaveBehavior : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update() {
+    void FixedUpdate() {
 
         if (m_color.a <= 0) Destroy(this.gameObject);
+        if (m_forceFactor < 0) m_forceFactor = 0;
 
         Expand();
         Detect();
@@ -62,7 +64,8 @@ public class ShockwaveBehavior : MonoBehaviour {
 
         this.gameObject.transform.localScale += Vector3.one * m_expansion;
 
-        m_forceFactor = (m_maxDist - this.gameObject.transform.localScale.magnitude) / m_maxDist;
+        //USING AN AXIS AS A MEASURE, ADMITTING SPHERICAL EXPANSION
+        if (m_forceFactor >= 0) m_forceFactor = (m_maxDist - this.gameObject.transform.localScale.x) / m_maxDist;
     }
 
     void Fade() {
@@ -80,6 +83,7 @@ public class ShockwaveBehavior : MonoBehaviour {
             target_rb = target.GetComponent<Rigidbody>();
 
             //IMPORTANT: USING X AXIS TO REPRESENT RADIUS, ASSUMING A SPHERICAL SHOCKWAVE!!!
+            //IT ALSO "DIGS INTO" THE BALL BEFORE PUSHING IT...
             if ((distance.sqrMagnitude <= (this.transform.localScale.x)) && !hit ) hit = Hit();
         }
     }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum Scenes { START, SETUP, TEST, SCENE_COUNT }
+public enum Scenes { START, SETUP, TEST,  END, SCENE_COUNT }
 
 public enum ShockWaveTypes { STANDARD, GUST, EXPLOSION, SHOCKWAVE_COUNT }
 

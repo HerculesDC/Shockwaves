@@ -23,12 +23,16 @@ public class InputManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        switch (currentScene) {
+        if (Input.GetKeyDown(KeyCode.N)) {
 
-            case 0: scInstance.ChangeScene(Scenes.SETUP); break;
-            case 1: scInstance.ChangeScene(Scenes.TEST); break;
+            switch (currentScene) {
 
-            default: break;
+                case 0: scInstance.RequestSceneChange(Scenes.SETUP); break;
+                case 1: scInstance.RequestSceneChange(Scenes.TEST); break;
+                case 2: scInstance.RequestSceneChange(Scenes.END); break;
+
+                default: break;
+            }
         }
 	}
 }

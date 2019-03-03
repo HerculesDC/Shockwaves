@@ -24,22 +24,10 @@ public class ArrowBehavior : MonoBehaviour
         m_line = this.gameObject.GetComponent<LineRenderer>();
 
         m_positions = new Vector3[POINTCOUNT];
-        
-        /* included in case of need
-        m_ball = GameObject.Find("Ball").transform;
-        m_end = GameObject.Find("Endpoint").transform;
-        */
     }
     // Start is called before the first frame update
-    void Start()
-    {
+    void Start() {
 
-        /* included in case of need
-        if (!m_ball) {
-           
-            m_ball = GameObject.Find("Ball").transform;
-            m_end = GameObject.Find("Endpoint").transform;
-        } */
     }
 
     // Update is called once per frame

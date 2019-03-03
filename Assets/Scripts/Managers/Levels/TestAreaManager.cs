@@ -2,19 +2,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TestAreaManager : MonoBehaviour { 
+//WILL HAVE TO CREATE A BASE CLASS LATER, WITH THIS CODE
+
+public class TestAreaManager : MonoBehaviour {
+
+    private UIManager m_UI;
 
     [SerializeField] private GameObject m_sphere;
                      private SphereBehavior m_sBehaviour;
                      private Rigidbody m_sRB;
 
+    [SerializeField] private float m_threshold;
+
     [SerializeField] private EndpointBehavior m_endpoint;
 
     private static float ballDistance = 0.0f;
-
     public static float BallDistance { get { return ballDistance; } }
 
     void Awake() {
+
+        m_UI = UIManager.UI_Instance;
 
         m_sBehaviour = m_sphere.GetComponent<SphereBehavior>();
         m_sRB =  m_sphere.GetComponent<Rigidbody>();
@@ -22,7 +29,8 @@ public class TestAreaManager : MonoBehaviour {
 
     // Start is called before the first frame update
     void Start() {
-        
+
+        if (!m_UI) m_UI = UIManager.UI_Instance;
     }
 
     // Update is called once per frame
@@ -30,8 +38,13 @@ public class TestAreaManager : MonoBehaviour {
 
         ballDistance = m_sBehaviour.GetDistance();
 
-        //using square magnitude for efficiency
-        if (m_sRB.velocity.sqrMagnitude == 0) CheckEnd();
+        if (m_sRB.velocity.sqrMagnitude <= m_threshold) { //using square magnitude for efficiency
+
+            if (CheckEnd()) {
+
+                if (m_UI) m_UI.ActivateEnd();
+            }   
+        }
     }
 
     public bool CheckEnd() {

@@ -51,6 +51,7 @@ public class ShockwaveStarter : MonoBehaviour {
 
     void StartShockwave(Vector3 input_position) {
 
+        // for whatever reason, the QueryTriggerInteraction isn't working with the expected enum. Cast to int instead.
         if (Physics.Raycast(m_ray, out m_hit)) {
 
             if (m_hit.collider.tag == "Ground") {
