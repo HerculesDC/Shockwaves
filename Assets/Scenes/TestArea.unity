@@ -605,6 +605,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93e3c02d933f1cf4c87fb9452bf3a6da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scInstance: {fileID: 0}
+  m_canvas: {fileID: 0}
   m_sliderElement: {fileID: 0}
   m_slider: {fileID: 0}
   m_textElement: {fileID: 0}
@@ -1103,7 +1105,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 7f2219ee2e9d1e84e9c5752cbb65cddf, type: 2}
+  - {fileID: 2100000, guid: b87dc3dede67df143a45b6bc35d1979a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1739,6 +1741,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93e3c02d933f1cf4c87fb9452bf3a6da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scInstance: {fileID: 0}
+  m_canvas: {fileID: 0}
   m_sliderElement: {fileID: 1050887192}
   m_slider: {fileID: 0}
   m_textElement: {fileID: 1321905138}
@@ -2323,8 +2327,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   offsets: {x: 0, y: 15, z: 0}
+  cam: {fileID: 0}
+  go_tracker: {fileID: 0}
+  target: {fileID: 0}
   gmInstance: {fileID: 0}
   sceneInstance: {fileID: 0}
+  uiInstance: {fileID: 0}
   sceneTracker: 2
 --- !u!114 &2048778208
 MonoBehaviour:

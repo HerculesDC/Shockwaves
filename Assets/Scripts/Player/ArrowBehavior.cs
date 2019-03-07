@@ -7,7 +7,10 @@ using UnityEngine;
 public class ArrowBehavior : MonoBehaviour
 {
     [SerializeField] private float m_height;
-    [SerializeField] private float m_length;
+
+    //This length can be tied to the distance, 
+        //which is more intuitive than the slider.
+    [SerializeField] private float m_length; 
 
     [SerializeField] private Transform m_ball;
     [SerializeField] private Transform m_end;
@@ -16,8 +19,6 @@ public class ArrowBehavior : MonoBehaviour
     private readonly uint POINTCOUNT = 2u; //for control
 
     private Vector3[] m_positions;
-
-    
 
     void Awake() {
 

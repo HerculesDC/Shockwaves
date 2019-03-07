@@ -29,7 +29,6 @@ public class InputManager : MonoBehaviour {
 
                 case 0: scInstance.RequestSceneChange(Scenes.SETUP); break;
                 case 1: scInstance.RequestSceneChange(Scenes.TEST); break;
-                case 2: scInstance.RequestSceneChange(Scenes.END); break;
 
                 default: break;
             }

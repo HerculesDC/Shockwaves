@@ -24,11 +24,13 @@ public class GameManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+
         if (!scInstance) scInstance = SceneHandler.SC_Instance;
     }
 	
 	// Update is called once per frame
 	void Update () {
+
         currentScene = (uint)scInstance.SceneTracker;
 	}
 }

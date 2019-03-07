@@ -91,7 +91,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_type: 0
-  m_maxForce: 1000
+  m_maxForce: 1500
   m_expansion: 0.05
   m_expansionToFade: 0.2
   m_maxDist: 0

@@ -9,14 +9,15 @@ public class CameraManager : MonoBehaviour {
 
     [SerializeField] Vector3 offsets = Vector3.zero;
 
-    private Camera cam;
+    [SerializeField] private Camera cam;
 
-    private GameObject go_tracker = null;
+    [SerializeField] private GameObject go_tracker = null;
 
-    private Transform target = null;
+    [SerializeField] private Transform target = null;
 
-    [SerializeField] private GameManager gmInstance = null;
-    [SerializeField] private SceneHandler sceneInstance = null;
+    [SerializeField] private GameManager gmInstance;
+    [SerializeField] private SceneHandler sceneInstance;
+    [SerializeField] private UIManager uiInstance;
     [SerializeField] private Scenes sceneTracker = Scenes.SCENE_COUNT;
 
     void Awake() {
@@ -28,11 +29,14 @@ public class CameraManager : MonoBehaviour {
 
         DontDestroyOnLoad(this.gameObject);
 
-        gmInstance = GameManager.GM_instance;
-        sceneInstance = SceneHandler.SC_Instance;
+        GameObject temp = GameObject.Find("Game_Manager");
+            gmInstance = temp.GetComponent<GameManager>();
+            sceneInstance = temp.GetComponentInChildren<SceneHandler>();
+            uiInstance = temp.GetComponentInChildren<UIManager>();
+        temp = null;
 
         go_tracker = GameObject.Find("Ball");
-            target = go_tracker.GetComponent<Transform>();
+            if (go_tracker) target = go_tracker.GetComponent<Transform>();
 
         if (sceneInstance) sceneTracker = sceneInstance.SceneTracker;
 
@@ -41,11 +45,6 @@ public class CameraManager : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-
-        if (!gmInstance) gmInstance = GameManager.GM_instance;
-
-        if (!sceneInstance) sceneInstance = SceneHandler.SC_Instance;
-        else sceneTracker = sceneInstance.SceneTracker;
 
         TrackScene();
         ChangePerspective();
@@ -68,17 +67,12 @@ public class CameraManager : MonoBehaviour {
 
     void TrackScene() {
 
-        /*
-        if (sceneTracker != sceneInstance.SceneTracker) {
-
-            go_tracker = GameObject.Find("Ball");
-                if (go_tracker) target = go_tracker.GetComponent<Transform>();
-        }*/
+        sceneTracker = sceneInstance.SceneTracker;
     }
 
     void ChangePerspective() {
         
-        if (!target)
+        if (sceneTracker != Scenes.TEST)
             cam.orthographic = true;
         else 
             cam.orthographic = false;
@@ -87,6 +81,7 @@ public class CameraManager : MonoBehaviour {
     void Reposition() {
 
         if (target) {
+
             this.gameObject.transform.position = target.position + offsets;
         }
     }

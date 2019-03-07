@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum Scenes { START, SETUP, TEST,  END, SCENE_COUNT }
+public enum Scenes { START, SETUP, TEST, SCENE_COUNT }
+
+public enum CanvasStates { START, SETUP, TEST, END, CANVAS_COUNT }
 
 public enum ShockWaveTypes { STANDARD, GUST, EXPLOSION, SHOCKWAVE_COUNT }
 
@@ -13,7 +15,6 @@ public struct MaterialProperty {
     public Material material;
     public PhysicMaterial physicMaterial;
     public Texture texture; //in the future, the idea is to have either this or material
-
 }
 
 struct InputHandler { }

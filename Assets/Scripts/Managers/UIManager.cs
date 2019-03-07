@@ -10,10 +10,11 @@ public class UIManager : MonoBehaviour {
     public static UIManager UI_Instance { get { return UI_instance; } }
 
     //private GameManager gmInstance = null;
-    private SceneHandler scInstance = null;
+    [SerializeField] private SceneHandler scInstance;
     private Scenes currentScene = Scenes.SCENE_COUNT;
 
-    private Canvas m_canvas;
+    [SerializeField] private Canvas m_canvas;
+
     [SerializeField] private GameObject m_sliderElement;
     [SerializeField] private Slider m_slider;
 
@@ -25,7 +26,7 @@ public class UIManager : MonoBehaviour {
         if (!UI_instance) UI_instance = this;
 
         //gmInstance = GameManager.GM_instance;
-        scInstance = SceneHandler.SC_Instance;
+        //scInstance = SceneHandler.SC_Instance;
 
         currentScene = scInstance.SceneTracker;
 
@@ -46,7 +47,9 @@ public class UIManager : MonoBehaviour {
 
         if (m_sliderElement) m_slider.value = TestAreaManager.BallDistance;
 
-        if (currentScene == Scenes.END) {
+
+        //REVISE!!!
+        if (currentScene == Scenes.SCENE_COUNT) {
 
             if (m_sliderElement) m_sliderElement.SetActive(false);
             if (!m_textElement) m_textElement.SetActive(true);
