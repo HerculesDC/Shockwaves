@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum Scenes { START, SETUP, TEST, SCENE_COUNT }
+public enum Scenes { START, TEST, SCENE_COUNT }
 
 public enum CanvasStates { START, SETUP, TEST, END, CANVAS_COUNT }
 

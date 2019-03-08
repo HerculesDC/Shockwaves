@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //WILL HAVE TO CREATE A BASE CLASS LATER, WITH THIS CODE
-
 public class TestAreaManager : MonoBehaviour {
 
-    private UIManager m_UI;
+    private UIManager m_UI; //BROIKEN!!! I DELETED THE UI ELEMENTS
 
     [SerializeField] private GameObject m_sphere;
                      private SphereBehavior m_sBehaviour;

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class InputManager : MonoBehaviour {
 
+    //Not sure whether the Game Manager's instance is really necessary here...
     private GameManager gmInstance = null;
     private SceneHandler scInstance = null;
 
@@ -27,8 +28,7 @@ public class InputManager : MonoBehaviour {
 
             switch (currentScene) {
 
-                case 0: scInstance.RequestSceneChange(Scenes.SETUP); break;
-                case 1: scInstance.RequestSceneChange(Scenes.TEST); break;
+                case 0: scInstance.RequestSceneChange(Scenes.TEST); break;
 
                 default: break;
             }

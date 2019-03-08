@@ -9,7 +9,6 @@ public class SphereBehavior : MonoBehaviour
 
     [SerializeField] private Transform m_start;
     [SerializeField] private Transform m_end;
-                     private Transform m_transform;
     
     /*Obs: These distances will be calculated as square magnitudes.
      *        => It's faster, and the division remains consistent.
@@ -19,8 +18,6 @@ public class SphereBehavior : MonoBehaviour
     [SerializeField] private float monitor;
 
     void Awake() {
-
-        m_transform = this.gameObject.transform;
 
         m_totalDist = (m_start.position - m_end.position).sqrMagnitude;
     }

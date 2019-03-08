@@ -20,7 +20,7 @@ public class SceneHandler : MonoBehaviour {
     void Awake(){
 
         if (SC_instance == null) SC_instance = this;
-        //else if (SC_instance != this) SC_instance = this;
+        else if (SC_instance != this) Destroy(this.gameObject);
 
         currentScene = this.gameObject.scene;
 
