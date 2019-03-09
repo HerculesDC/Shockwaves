@@ -4,7 +4,12 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour {
 
-    public static GameManager GM_instance = null;
+    private static GameManager GM_instance;
+    public static GameManager GM_Instance { get { return GM_instance; } }
+
+    private GameState m_previousState;
+    private static GameState GM_state;
+    public static GameState GM_State { get { return GM_state; } }
 
     private SceneHandler scInstance = null;
     private uint currentScene = 0u;
@@ -16,6 +21,9 @@ public class GameManager : MonoBehaviour {
 
         else if (GM_instance != this)
                     Destroy(this.gameObject);
+
+        m_previousState = GameState.START;
+        GM_state = GameState.START;
 
         DontDestroyOnLoad(this.gameObject);
 
@@ -31,6 +39,49 @@ public class GameManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        currentScene = (uint)scInstance.SceneTracker;
+        if (m_previousState != GM_state) {
+            
+            UpdateUIState(GM_state); //UI has to be updated independently of level
+            UpdateScene(GM_state);//logic error...
+            m_previousState = GM_state;
+        }
 	}
+
+    void UpdateUIState(GameState newState) {
+
+        if(!UIManager.RequestUIChange(newState)) Debug.Log ("Unable to change UI state...");
+    }
+
+    void UpdateScene(GameState newLevel) {
+
+        switch (newLevel) {
+            case GameState.START: 
+            case GameState.SETUP:
+                //As per current settings, GameState.START and GameState.SETUP shouldn't change scenes. Only UI states
+                break;
+            case GameState.LEVEL_1:
+                if (!SceneHandler.RequestSceneChange(Scenes.TEST)) Debug.Log("Unable to change levels...");
+                break;
+            case GameState.LEVEL_2:
+            case GameState.LEVEL_3:
+                //these levels aren't implemented yet. But they'll take a similar code path
+                break;
+            default: break;
+        }
+    }
+
+    public static bool RequestStateChange(GameState target) {
+
+        if (target < GameState.STATE_COUNT) {
+
+            if (target == GM_state) {
+
+                Debug.Log("Cannot change to same state...");
+                return false;
+            }
+            GM_state = target;
+        }
+        return GM_state == target;
+    }
 }
+

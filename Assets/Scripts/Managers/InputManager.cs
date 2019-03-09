@@ -4,34 +4,35 @@ using UnityEngine;
 
 public class InputManager : MonoBehaviour {
 
-    //Not sure whether the Game Manager's instance is really necessary here...
-    private GameManager gmInstance = null;
-    private SceneHandler scInstance = null;
-
-    private uint currentScene = 0u;
+    private GameState m_stateTracker;
     
     void Awake() {
-        gmInstance = GameManager.GM_instance;
-        scInstance = SceneHandler.SC_Instance;
+
+        m_stateTracker = GameManager.GM_State;
     }
     // Use this for initialization
 	void Start () {
-        if (!gmInstance) gmInstance = GameManager.GM_instance;
-        if (!scInstance) scInstance = SceneHandler.SC_Instance;
-            currentScene = (uint)scInstance.SceneTracker;
+                    
     }
 	
 	// Update is called once per frame
 	void Update () {
 
+        m_stateTracker = GameManager.GM_State; //Don't forget to update state trackers!!!
+
         if (Input.GetKeyDown(KeyCode.N)) {
 
-            switch (currentScene) {
+            switch (m_stateTracker) {
 
-                case 0: scInstance.RequestSceneChange(Scenes.TEST); break;
+                case GameState.START:   GameManager.RequestStateChange(GameState.SETUP);    break;
+                case GameState.SETUP:   GameManager.RequestStateChange(GameState.LEVEL_1);   break;
+                case GameState.LEVEL_1:  GameManager.RequestStateChange(GameState.END);      break;
+                case GameState.LEVEL_2: 
+                case GameState.LEVEL_3:
+                    break;
 
                 default: break;
             }
         }
-	}
+    }
 }

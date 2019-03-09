@@ -23,7 +23,7 @@ public class CameraManager : MonoBehaviour {
     void Awake() {
 
         if (CM_instance == null) CM_instance = this;
-        else if (CM_instance != this) CM_instance = this;
+        else if (CM_instance != this) Destroy(this.gameObject);
 
         cam = this.gameObject.GetComponent<Camera>();
 
@@ -38,7 +38,7 @@ public class CameraManager : MonoBehaviour {
         go_tracker = GameObject.Find("Ball");
             if (go_tracker) target = go_tracker.GetComponent<Transform>();
 
-        if (sceneInstance) sceneTracker = sceneInstance.SceneTracker;
+        if (sceneInstance) sceneTracker = SceneHandler.SceneTracker;
 
         go_tracker = null;
     }
@@ -67,7 +67,7 @@ public class CameraManager : MonoBehaviour {
 
     void TrackScene() {
 
-        sceneTracker = sceneInstance.SceneTracker;
+        sceneTracker = SceneHandler.SceneTracker;
     }
 
     void ChangePerspective() {

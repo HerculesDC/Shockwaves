@@ -8,10 +8,10 @@ using UnityEngine.SceneManagement;
 //named "SceneHandler" because Unity already has a "SceneManager"
 public class SceneHandler : MonoBehaviour {
 
-    private Scene currentScene;
+    private Scene m_currentScene;
 
-    private Scenes sceneTracker;
-    public Scenes SceneTracker { get { return sceneTracker; } }
+    private static Scenes sceneTracker;
+    public static Scenes SceneTracker { get { return sceneTracker; } }
 
     private static SceneHandler SC_instance = null;
     public static SceneHandler SC_Instance { get { return SC_instance; } }
@@ -22,9 +22,9 @@ public class SceneHandler : MonoBehaviour {
         if (SC_instance == null) SC_instance = this;
         else if (SC_instance != this) Destroy(this.gameObject);
 
-        currentScene = this.gameObject.scene;
+        m_currentScene = this.gameObject.scene;
 
-        sceneTracker = (Scenes)currentScene.buildIndex;
+        sceneTracker = (Scenes)m_currentScene.buildIndex;
     }
 
     // Use this for initialization
@@ -35,9 +35,26 @@ public class SceneHandler : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        currentScene = this.gameObject.scene;
-        sceneTracker = (Scenes)currentScene.buildIndex;
+        m_currentScene = this.gameObject.scene;
+        sceneTracker = (Scenes)m_currentScene.buildIndex;
     }
 
-    public void RequestSceneChange(Scenes targetScene) { SceneManager.LoadScene((int)targetScene); }
+    //RETHINK!!!
+    public static bool RequestSceneChange(Scenes targetScene) {
+
+        if (targetScene < Scenes.SCENE_COUNT) {
+
+            if (targetScene == sceneTracker) {
+
+                Debug.Log("What's the point of changing to the same scene?");
+                return false;
+            }
+            else {
+
+                SceneManager.LoadScene((int)targetScene);
+                return true;
+            }
+        }
+        else return false;
+    }
 }
