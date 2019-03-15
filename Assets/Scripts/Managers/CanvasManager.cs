@@ -15,14 +15,15 @@ public class CanvasManager : MonoBehaviour {
 
     [SerializeField] private float offset;
 
-    private bool m_titleShifted;
+    private bool m_titleShifted = false;
+
+    private bool m_levelStarted = false;
+    private float m_elapsedTime = 0.0f;
 
     void Awake() {
 
         if (!CM_instance) CM_instance = this;
         else if (CM_instance != this) Destroy(this.gameObject);
-
-        m_titleShifted = false;
 
         foreach (GameObject c in canvasObjects) { c.SetActive(false); }
     }
@@ -43,10 +44,11 @@ public class CanvasManager : MonoBehaviour {
 
         switch (m_innerState) {
 
-            case (CanvasState.START): DisplayTitle(); break;
-            case (CanvasState.SETUP): DisplaySetup(); break;
-            case (CanvasState.LEVEL): DisplayLevel(); break;
-            case (CanvasState.END):   DisplayEnd();   break;
+            case (CanvasState.START):     DisplayTitle();    break;
+            case (CanvasState.SETUP):     DisplaySetup();    break;
+            case (CanvasState.LEVEL):     DisplayLevel();    break;
+            case (CanvasState.LEVEL_END): DisplayLevelEnd(); break;
+            case (CanvasState.END):       DisplayEnd();      break;
             default: break;
         }
 
@@ -68,6 +70,7 @@ public class CanvasManager : MonoBehaviour {
 
             m_titleShifted = true;
         }
+
         canvasObjects[1].SetActive(true);
         canvasObjects[2].SetActive(true);
 
@@ -75,35 +78,59 @@ public class CanvasManager : MonoBehaviour {
 
     void DisplayLevel() {
 
+        m_levelStarted = true;
+
         if (canvasObjects[0].activeInHierarchy)  canvasObjects[0].SetActive(false);
         if (canvasObjects[1].activeInHierarchy)  canvasObjects[1].SetActive(false);
         if (canvasObjects[2].activeInHierarchy)  canvasObjects[2].SetActive(false);
 
         canvasObjects[4].SetActive(true);
+
+        UpdateTimer();
     }
 
-    void DisplayEnd() {
+    void DisplayLevelEnd() {
 
         canvasObjects[5].SetActive(true);
     }
 
-    //what's the use of static in this case? Is it adequate???
-    public static bool RequestCanvasChange(CanvasState targetState) {
+    void UpdateTimer() {
 
-        if (targetState < CanvasState.CANVAS_COUNT) {
-            //REQURES A DIFFERENT APPROACH, MAINLY BECAUSE OF LEVEL UI RESETS...
+        Text txt = null;
 
-            /*
-            if (targetState == m_innerState) {
+        if (canvasObjects[4].activeInHierarchy) {
 
-                Debug.Log("Cannot change to the same state. Are you trying to change levels?");
-                return false;
-            }
-            */
-            m_innerState = targetState;
-            return true;
+            txt = canvasObjects[4].GetComponent<Text>();
         }
 
+        if (m_levelStarted) {
+
+            m_elapsedTime += Time.deltaTime;
+            if (txt) txt.text = "Time: " + m_elapsedTime.ToString("F2");
+        }
+    }
+
+    void ResetTimer() { m_elapsedTime = 0.0f; }
+
+    void DisplayEnd() {
+
+        if (canvasObjects[4].activeInHierarchy) canvasObjects[4].SetActive(false);
+        if (canvasObjects[5].activeInHierarchy) canvasObjects[5].SetActive(false);
+
+        canvasObjects[6].SetActive(true);
+    }
+
+    //what's the use of static in this case? Is it adequate???
+    public bool RequestCanvasChange(CanvasState targetState) {
+
+        if (targetState < CanvasState.CANVAS_COUNT) {
+
+            if (m_innerState == CanvasState.LEVEL_END && targetState == CanvasState.LEVEL) {
+
+                ResetTimer();
+            }
+            m_innerState = targetState;
+        }
         return m_innerState == targetState;
     }
 }

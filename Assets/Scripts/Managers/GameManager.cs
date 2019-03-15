@@ -11,7 +11,8 @@ public class GameManager : MonoBehaviour {
     private static GameState GM_state;
     public static GameState GM_State { get { return GM_state; } }
 
-    private SceneHandler scInstance = null;
+    private UIManager m_UIInstance = null;
+    private SceneHandler m_SCInstance = null;
     private uint currentScene = 0u;
 
     void Awake() {
@@ -27,13 +28,14 @@ public class GameManager : MonoBehaviour {
 
         DontDestroyOnLoad(this.gameObject);
 
-        if (!scInstance) scInstance = SceneHandler.SC_Instance;
+        if (!m_UIInstance) m_UIInstance = UIManager.UI_Instance;
+        if (!m_SCInstance) m_SCInstance = SceneHandler.SC_Instance;
     }
 
 	// Use this for initialization
 	void Start () {
 
-        if (!scInstance) scInstance = SceneHandler.SC_Instance;
+        if (!m_SCInstance) m_SCInstance = SceneHandler.SC_Instance;
     }
 	
 	// Update is called once per frame
@@ -43,13 +45,14 @@ public class GameManager : MonoBehaviour {
             
             UpdateUIState(GM_state); //UI has to be updated independently of level
             UpdateScene(GM_state);//logic error...
-            m_previousState = GM_state;
+            //implemented for level tracking
+            if (GM_state != GameState.LEVEL_END) m_previousState = GM_state;
         }
 	}
 
     void UpdateUIState(GameState newState) {
 
-        if(!UIManager.RequestUIChange(newState)) Debug.Log ("Unable to change UI state...");
+        if(!m_UIInstance.RequestUIChange(newState)) Debug.Log ("Unable to change UI state...");
     }
 
     void UpdateScene(GameState newLevel) {
@@ -66,6 +69,7 @@ public class GameManager : MonoBehaviour {
             case GameState.LEVEL_3:
                 //these levels aren't implemented yet. But they'll take a similar code path
                 break;
+            case GameState.LEVEL_END: break; //to implement level transitions
             default: break;
         }
     }

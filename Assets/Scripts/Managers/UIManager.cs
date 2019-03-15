@@ -39,7 +39,7 @@ public class UIManager : MonoBehaviour {
         //if (!m_textElement.activeInHierarchy) m_textElement.SetActive(true);
     }
 
-    public static bool RequestUIChange(GameState newState) {
+    public bool RequestUIChange(GameState newState) {
         
         CanvasState temp = CanvasState.CANVAS_COUNT; //prevents illogical state change
 
@@ -54,8 +54,7 @@ public class UIManager : MonoBehaviour {
                 case GameState.LEVEL_3:
                     temp = CanvasState.LEVEL;
                     break;
-                case GameState.LEVEL_END: temp = CanvasState.END; break;
-                    //THIS SHOULD BE GAME END...
+                case GameState.LEVEL_END: temp = CanvasState.LEVEL_END; break;
                 case GameState.END: temp = CanvasState.END; break;
 
                 default:
@@ -63,6 +62,6 @@ public class UIManager : MonoBehaviour {
                     break;
             }
         }
-        return CanvasManager.RequestCanvasChange(temp);
+        return m_canvasManager.RequestCanvasChange(temp);
     }
 }

@@ -14,6 +14,7 @@ public class TestAreaManager : MonoBehaviour {
     [SerializeField] private float m_threshold;
 
     [SerializeField] private EndpointBehavior m_endpoint;
+                   //private bool m_levelFinished = false;
 
     private static float ballDistance = 0.0f;
     public static float BallDistance { get { return ballDistance; } }
@@ -41,7 +42,8 @@ public class TestAreaManager : MonoBehaviour {
 
             if (CheckEnd()) {
 
-                UIManager.RequestUIChange(GameState.LEVEL_END);
+                //to prevent "same-state changes" from triggering
+                if(GameManager.GM_State != GameState.LEVEL_END) GameManager.RequestStateChange(GameState.LEVEL_END);
             }   
         }
     }

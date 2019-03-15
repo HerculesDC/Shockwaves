@@ -35,23 +35,28 @@ public class ShockwaveStarter : MonoBehaviour {
     // Update is called once per frame
     void Update() { //OBS: May need refining
 
-        if (Input.touchCount > 0) {
+        if (GameManager.GM_State != GameState.END) {
 
-            m_touch = Input.GetTouch(0);
-            m_ray = m_cam.ScreenPointToRay(m_touch.position);
+            if (GameManager.GM_State != GameState.LEVEL_END) {
 
-            if (m_touch.phase == TouchPhase.Began && !m_shockInstance) StartShockwave(m_touch.position);
-        }
-        else {
+                if (Input.touchCount > 0) {
 
-            m_ray = m_cam.ScreenPointToRay(Input.mousePosition);
-            if (Input.GetMouseButtonDown(0) && !m_shockInstance) StartShockwave(Input.mousePosition);
+                    m_touch = Input.GetTouch(0);
+                    m_ray = m_cam.ScreenPointToRay(m_touch.position);
+
+                    if (m_touch.phase == TouchPhase.Began && !m_shockInstance) StartShockwave(m_touch.position);
+                }
+                else {
+
+                    m_ray = m_cam.ScreenPointToRay(Input.mousePosition);
+                    if (Input.GetMouseButtonDown(0) && !m_shockInstance) StartShockwave(Input.mousePosition);
+                }
+            }
         }
     }
 
     void StartShockwave(Vector3 input_position) {
 
-        // for whatever reason, the QueryTriggerInteraction isn't working with the expected enum. Cast to int instead.
         if (Physics.Raycast(m_ray, out m_hit)) {
 
             if (m_hit.collider.tag == "Ground") {

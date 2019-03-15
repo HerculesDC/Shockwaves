@@ -12,7 +12,7 @@ public class ArrowBehavior : MonoBehaviour
     private readonly uint POINTCOUNT = 2u;      //number of control points
     private Vector3[] m_positions;              //control points
     [SerializeField] private float m_height;    //height from the ball
-    private readonly float m_maxLength = 2.0f;  //maximum length of the line
+    private readonly float m_maxLength = 1.5f;  //maximum length of the line
     private float m_width = 1.0f;               //intended as line's starting width
 
     private GameObject m_ball;                  //the object the arrow's gonna accompany
@@ -63,7 +63,7 @@ public class ArrowBehavior : MonoBehaviour
         m_target.x = m_end.position.x - m_ball.transform.position.x;
         m_target.y = m_end.position.z - m_ball.transform.position.z;
         m_target.Normalize();
-        m_target = m_target * m_maxLength * Mathf.Clamp(m_sphere.GetDistance(), 0.2f, m_sphere.GetDistance());
+        m_target = m_target * m_maxLength * (0.5f + m_sphere.GetDistance());
     }
 
     void Widen() {
