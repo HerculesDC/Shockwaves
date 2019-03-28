@@ -1,9 +1,12 @@
 Win64
 PlayerPath?
-C:/Users/hercu/Documents/SchoolStuff/SemVI/GP6/BUILDS/BuildMS2/Shockwaves.exe
+C:/Users/hercu/Documents/SchoolStuff/SemVI/GP6/BUILDS/BuildMS2B/Shockwaves.exe
 SceneListBegin?
 Assets/Scenes/Start.unity
-Assets/Scenes/TestArea.unity
+Assets/Scenes/Level1.unity
+Assets/Scenes/Level2.unity
+Assets/Scenes/Level3.unity
+Assets/Scenes/End.unity
 SceneListEnd?
 984dcc0ba3707b7691fbdca8ff508d28 Unity.TextMeshPro.dll:TMPro.TMP_SelectionCaret
 3e301a620de85aa46316745e140dcc15 Assembly-CSharp.dll:.CameraManager

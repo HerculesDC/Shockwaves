@@ -25,10 +25,21 @@ public class InputManager : MonoBehaviour {
             switch (m_stateTracker) {
 
                 case GameState.START:   GameManager.RequestStateChange(GameState.SETUP);    break;
-                case GameState.SETUP:   GameManager.RequestStateChange(GameState.LEVEL_1);   break;
-                case GameState.LEVEL_1:  GameManager.RequestStateChange(GameState.END);      break;
-                case GameState.LEVEL_2: 
+                case GameState.SETUP:   GameManager.RequestStateChange(GameState.LEVEL_1);  break;
+
+                case GameState.LEVEL_1:
+                    if (m_stateTracker == GameState.LEVEL_END)
+                        GameManager.RequestStateChange(GameState.LEVEL_2);
+                    break;
+
+                case GameState.LEVEL_2:
+                    if (m_stateTracker == GameState.LEVEL_END)
+                        GameManager.RequestStateChange(GameState.LEVEL_3);
+                    break;
+
                 case GameState.LEVEL_3:
+                    if (m_stateTracker == GameState.LEVEL_END)
+                        GameManager.RequestStateChange(GameState.GAME_END);
                     break;
 
                 default: break;

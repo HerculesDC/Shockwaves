@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Level Manager
   - Ground
+  - Ball
   layers:
   - Default
   - TransparentFX

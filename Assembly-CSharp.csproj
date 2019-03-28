@@ -75,6 +75,7 @@
     <Compile Include="Assets\Scripts\Player\ShockwaveBehavior.cs" />
     <Compile Include="Assets\Scripts\Player\ShockwaveStarter.cs" />
     <Compile Include="Assets\Scripts\Player\SphereBehavior.cs" />
+    <None Include="Assets\_Imported\IceMaterial\Shader\Ice.shader" />
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>C:/Users/hercu/Documents/SchoolStuff/SemVI/GP6/Shockwaves/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>

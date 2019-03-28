@@ -55,7 +55,7 @@ public class UIManager : MonoBehaviour {
                     temp = CanvasState.LEVEL;
                     break;
                 case GameState.LEVEL_END: temp = CanvasState.LEVEL_END; break;
-                case GameState.END: temp = CanvasState.END; break;
+                case GameState.GAME_END: temp = CanvasState.END; break;
 
                 default:
                     Debug.Log("Not supposed to have reached here...");

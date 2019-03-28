@@ -35,7 +35,7 @@ public class CameraManager : MonoBehaviour {
             uiInstance = temp.GetComponentInChildren<UIManager>();
         temp = null;
 
-        go_tracker = GameObject.Find("Ball");
+        go_tracker = GameObject.FindGameObjectWithTag("Ball");
             if (go_tracker) target = go_tracker.GetComponent<Transform>();
 
         if (sceneInstance) sceneTracker = SceneHandler.SceneTracker;
@@ -53,7 +53,7 @@ public class CameraManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        if (!go_tracker) go_tracker = GameObject.Find("Ball");
+        if (!go_tracker) go_tracker = GameObject.FindGameObjectWithTag("Ball");
         else if (go_tracker && !target) target = go_tracker.GetComponent<Transform>();
         else if (go_tracker && target) {
 

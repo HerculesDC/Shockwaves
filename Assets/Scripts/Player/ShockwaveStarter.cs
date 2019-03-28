@@ -35,7 +35,7 @@ public class ShockwaveStarter : MonoBehaviour {
     // Update is called once per frame
     void Update() { //OBS: May need refining
 
-        if (GameManager.GM_State != GameState.END) {
+        if (GameManager.GM_State != GameState.GAME_END) {
 
             if (GameManager.GM_State != GameState.LEVEL_END) {
 
@@ -49,7 +49,7 @@ public class ShockwaveStarter : MonoBehaviour {
                 else {
 
                     m_ray = m_cam.ScreenPointToRay(Input.mousePosition);
-                    if (Input.GetMouseButtonDown(0) && !m_shockInstance) StartShockwave(Input.mousePosition);
+                    if (Input.GetMouseButtonDown(0) /*&& !m_shockInstance*/) StartShockwave(Input.mousePosition);
                 }
             }
         }

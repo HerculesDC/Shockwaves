@@ -35,7 +35,14 @@ public class ShockwaveBehavior : MonoBehaviour {
             m_color = m_material.color;
             m_alpha = m_color.a;
 
-        target = GameObject.Find("Ball");
+        switch (GameManager.GM_State) {
+
+            case (GameState.LEVEL_1): target = GameObject.Find("Ball_Wood"); break;
+            case (GameState.LEVEL_2): target = GameObject.Find("Ball_Metal"); break;
+            case (GameState.LEVEL_3): target = GameObject.Find("Ball_Ice"); break;
+            default: target = null; break;
+        }
+        if (!target) Debug.Log("Something's up. Retrying at Start()...");
 
         m_maxDist = (m_expansion + m_expansionToFade) / m_expansion;
 
@@ -46,12 +53,24 @@ public class ShockwaveBehavior : MonoBehaviour {
     // Start is called before the first frame update
     void Start() {
 
-        if (!target) target = GameObject.Find("Ball");
+        if (!target) {
+
+            switch (GameManager.GM_State) {
+
+                case (GameState.LEVEL_1): target = GameObject.Find("Ball_Wood"); break;
+                case (GameState.LEVEL_2): target = GameObject.Find("Ball_Metal"); break;
+                case (GameState.LEVEL_3): target = GameObject.Find("Ball_Ice"); break;
+                default: target = null; break;
+            }
+            //Verifying that we may have something wrong...
+            if (!target) Debug.Log("Something's not quite right...");
+        }
     }
 
     // Update is called once per frame
     void FixedUpdate() {
 
+        
         if (m_color.a <= 0) Destroy(this.gameObject);
         if (m_forceFactor < 0) m_forceFactor = 0;
 

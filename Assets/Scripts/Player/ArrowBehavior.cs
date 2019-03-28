@@ -23,7 +23,7 @@ public class ArrowBehavior : MonoBehaviour
 
     void Awake() {
 
-        m_ball = GameObject.Find("Ball");
+        m_ball = GameObject.FindGameObjectWithTag("Ball");
             m_sphere = m_ball.GetComponent<SphereBehavior>();
 
         m_end = GameObject.Find("Endpoint").transform;
