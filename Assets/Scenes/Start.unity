@@ -433,14 +433,5 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2056204624175059062, guid: c423646eabda3b04c95ece82b2015d93,
-        type: 3}
-      propertyPath: m_Text
-      value: 'Shockwaves 2.0
-
-        (press ''N'' to advance screens)
-
-        (Press ''Esc'' at any time to quit)'
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c423646eabda3b04c95ece82b2015d93, type: 3}

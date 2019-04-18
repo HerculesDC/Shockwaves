@@ -18,7 +18,6 @@ public class SoundManager : MonoBehaviour {
         else if (SM_instance != this) Destroy(this.gameObject);
 
         m_audioSource = this.gameObject.GetComponent<AudioSource>();
-        //m_audioClips = new AudioClip[];
     }
 
 	// Use this for initialization
@@ -28,6 +27,23 @@ public class SoundManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+
+        switch (GameManager.GM_State) { //Tied to GameState because it makes sense
+
+            case GameState.LEVEL_1:
+                m_audioSource.clip = m_audioClips[0];
+                if (!m_audioSource.isPlaying)m_audioSource.Play();
+                break;
+            case GameState.LEVEL_2:
+                m_audioSource.clip = m_audioClips[1];
+                if (!m_audioSource.isPlaying) m_audioSource.Play();
+                break;
+            case GameState.LEVEL_3:
+                m_audioSource.clip = m_audioClips[2];
+                if (!m_audioSource.isPlaying) m_audioSource.Play();
+                break;
+            default: m_audioSource.Stop(); break;
+        }
+
 	}
 }

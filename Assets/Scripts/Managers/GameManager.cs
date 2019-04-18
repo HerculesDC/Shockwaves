@@ -82,6 +82,7 @@ public class GameManager : MonoBehaviour {
                 else Restate();
                 break; //to implement level transitions
             case GameState.GAME_END:
+                if (!SceneHandler.RequestSceneChange(Scenes.END_SCENE)) Debug.Log("Unable to change levels...");
                 break;
             default: break;
         }

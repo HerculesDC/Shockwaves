@@ -57,9 +57,7 @@ public class UIManager : MonoBehaviour {
                 case GameState.LEVEL_END: temp = CanvasState.LEVEL_END; break;
                 case GameState.GAME_END: temp = CanvasState.END; break;
 
-                default:
-                    Debug.Log("Not supposed to have reached here...");
-                    break;
+                default: Debug.Log("Not supposed to have reached here..."); break;
             }
         }
         return m_canvasManager.RequestCanvasChange(temp);
