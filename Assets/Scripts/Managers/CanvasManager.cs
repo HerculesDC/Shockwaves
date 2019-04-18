@@ -83,7 +83,9 @@ public class CanvasManager : MonoBehaviour {
         if (canvasObjects[0].activeInHierarchy)  canvasObjects[0].SetActive(false);
         if (canvasObjects[1].activeInHierarchy)  canvasObjects[1].SetActive(false);
         if (canvasObjects[2].activeInHierarchy)  canvasObjects[2].SetActive(false);
-
+        //FROM LEVEL TO LEVEL, this has to be reset
+        if (canvasObjects[5].activeInHierarchy)  canvasObjects[5].SetActive(false);
+      
         canvasObjects[4].SetActive(true);
 
         UpdateTimer();
@@ -91,6 +93,7 @@ public class CanvasManager : MonoBehaviour {
 
     void DisplayLevelEnd() {
 
+        m_levelStarted = false;
         canvasObjects[5].SetActive(true);
     }
 

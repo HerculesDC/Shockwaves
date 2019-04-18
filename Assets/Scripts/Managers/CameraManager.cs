@@ -54,16 +54,15 @@ public class CameraManager : MonoBehaviour {
 	void Update () {
 
         if (!go_tracker) go_tracker = GameObject.FindGameObjectWithTag("Ball");
-        else if (go_tracker && !target) target = go_tracker.GetComponent<Transform>();
-        else if (go_tracker && target) {
 
+            target = go_tracker.GetComponent<Transform>();
             Reposition();
-            this.gameObject.transform.LookAt(target);
-        }
-
+        
         TrackScene();
         ChangePerspective();
     }
+
+    void Retarget() { }
 
     void TrackScene() {
 
@@ -72,7 +71,8 @@ public class CameraManager : MonoBehaviour {
 
     void ChangePerspective() {
         
-        if (sceneTracker != Scenes.TEST)
+        //if (sceneTracker < Scenes.LEVEL_1 || sceneTracker > Scenes.LEVEL_3)
+        if (!go_tracker)
             cam.orthographic = true;
         else 
             cam.orthographic = false;
@@ -83,6 +83,7 @@ public class CameraManager : MonoBehaviour {
         if (target) {
 
             this.gameObject.transform.position = target.position + offsets;
+            this.gameObject.transform.LookAt(target);
         }
     }
 }

@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-
-
 //named "SceneHandler" because Unity already has a "SceneManager"
 public class SceneHandler : MonoBehaviour {
 

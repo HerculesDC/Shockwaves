@@ -343,7 +343,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1017275067e338641aebe038913c44a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  offsets: {x: 0, y: 15, z: 0}
+  offsets: {x: 0, y: 12.5, z: 0}
   cam: {fileID: 0}
   go_tracker: {fileID: 0}
   target: {fileID: 0}

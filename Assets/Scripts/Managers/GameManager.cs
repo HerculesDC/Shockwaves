@@ -13,7 +13,10 @@ public class GameManager : MonoBehaviour {
 
     private UIManager m_UIInstance = null;
     private SceneHandler m_SCInstance = null;
-    private uint currentScene = 0u;
+    private uint m_currentScene = 0u;
+
+    private float m_waitTime = 3.0f;
+    private float m_elapsedTime = 0.0f;
 
     void Awake() {
 
@@ -46,7 +49,8 @@ public class GameManager : MonoBehaviour {
             UpdateUIState(GM_state); //UI has to be updated independently of level
             UpdateScene(GM_state);//logic error...
             //implemented for level tracking
-            if (GM_state != GameState.LEVEL_END) m_previousState = GM_state;
+            //if (GM_state != GameState.LEVEL_END)
+                m_previousState = GM_state;
         }
 	}
 
@@ -63,13 +67,21 @@ public class GameManager : MonoBehaviour {
                 //As per current settings, GameState.START and GameState.SETUP shouldn't change scenes. Only UI states
                 break;
             case GameState.LEVEL_1:
-                if (!SceneHandler.RequestSceneChange(Scenes.TEST)) Debug.Log("Unable to change levels...");
+                if (!SceneHandler.RequestSceneChange(Scenes.LEVEL_1)) Debug.Log("Unable to change levels...");
                 break;
             case GameState.LEVEL_2:
-            case GameState.LEVEL_3:
-                //these levels aren't implemented yet. But they'll take a similar code path
+                if (!SceneHandler.RequestSceneChange(Scenes.LEVEL_2)) Debug.Log("Unable to change levels...");
                 break;
-            case GameState.LEVEL_END: break; //to implement level transitions
+            case GameState.LEVEL_3:
+                if (!SceneHandler.RequestSceneChange(Scenes.LEVEL_3)) Debug.Log("Unable to change levels...");
+                break;
+            case GameState.LEVEL_END:
+                if (!SceneHandler.RequestSceneChange(Scenes.LEVEL_2)) Debug.Log("Unable to change levels...");
+                //if (m_elapsedTime < m_waitTime) m_elapsedTime += Time.deltaTime;
+                //else Restate();
+                break; //to implement level transitions
+            case GameState.GAME_END:
+                break;
             default: break;
         }
     }
@@ -87,5 +99,16 @@ public class GameManager : MonoBehaviour {
         }
         return GM_state == target;
     }
-}
 
+    void ResetTimer() { m_elapsedTime = 0.0f; }
+
+    void Restate() {
+
+        switch (m_previousState) {
+            case GameState.LEVEL_1: GM_state = GameState.LEVEL_2; ResetTimer(); break;
+            case GameState.LEVEL_2: GM_state = GameState.LEVEL_3; ResetTimer(); break;
+            case GameState.LEVEL_3: GM_state = GameState.GAME_END; ResetTimer(); break;
+            default: Debug.Log("REPORTING ERROR!!!"); break;
+        }
+    }
+}

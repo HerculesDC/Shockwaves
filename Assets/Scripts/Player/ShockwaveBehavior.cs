@@ -70,7 +70,6 @@ public class ShockwaveBehavior : MonoBehaviour {
     // Update is called once per frame
     void FixedUpdate() {
 
-        
         if (m_color.a <= 0) Destroy(this.gameObject);
         if (m_forceFactor < 0) m_forceFactor = 0;
 
