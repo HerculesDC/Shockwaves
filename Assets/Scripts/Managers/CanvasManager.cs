@@ -56,10 +56,14 @@ public class CanvasManager : MonoBehaviour {
 
     void DisplayTitle() {
 
+        foreach (GameObject canvasObj in canvasObjects) canvasObj.SetActive(false);
+
         if (!canvasObjects[0].activeInHierarchy) canvasObjects[0].SetActive(true);
     }
 
     void DisplaySetup() { //removed IF checks, cause I already expect a result
+
+        foreach (GameObject canvasObj in canvasObjects) canvasObj.SetActive(false);
 
         canvasObjects[0].SetActive(true);
 
@@ -79,6 +83,8 @@ public class CanvasManager : MonoBehaviour {
     void DisplayLevel() {
 
         m_levelStarted = true;
+
+        foreach (GameObject canvasObj in canvasObjects) canvasObj.SetActive(false);
 
         if (canvasObjects[0].activeInHierarchy)  canvasObjects[0].SetActive(false);
         if (canvasObjects[1].activeInHierarchy)  canvasObjects[1].SetActive(false);

@@ -19,6 +19,8 @@ public class TestAreaManager : MonoBehaviour {
     private static float ballDistance = 0.0f;
     public static float BallDistance { get { return ballDistance; } }
 
+    private bool m_readyToUnload = false;
+
     void Awake() {
 
         //m_UI = UIManager.UI_Instance;
@@ -42,8 +44,11 @@ public class TestAreaManager : MonoBehaviour {
 
             if (CheckEnd()) {
 
-                //to prevent "same-state changes" from triggering
-                if(GameManager.GM_State != GameState.LEVEL_END) GameManager.RequestStateChange(GameState.LEVEL_END);
+                //had to put a variable here to "stall" the update... feels like redundant code to me
+                if (!m_readyToUnload) {
+                    GameManager.RequestStateChange(GameState.LEVEL_END);
+                    m_readyToUnload = true;
+                }
             }   
         }
     }

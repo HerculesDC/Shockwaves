@@ -45,12 +45,14 @@ public class GameManager : MonoBehaviour {
 	void Update () {
 
         if (m_previousState != GM_state) {
-            
-            UpdateUIState(GM_state); //UI has to be updated independently of level
-            UpdateScene(GM_state);//logic error...
-            //implemented for level tracking
-            //if (GM_state != GameState.LEVEL_END)
+
+            Debug.Log(m_previousState);
+            Debug.Log(GM_state);
+            if (GM_state != GameState.LEVEL_END)
                 m_previousState = GM_state;
+
+            UpdateUIState(GM_state); //UI has to be updated independently of level
+            UpdateScene(GM_state);//logic error...           
         }
 	}
 
@@ -76,9 +78,8 @@ public class GameManager : MonoBehaviour {
                 if (!SceneHandler.RequestSceneChange(Scenes.LEVEL_3)) Debug.Log("Unable to change levels...");
                 break;
             case GameState.LEVEL_END:
-                if (!SceneHandler.RequestSceneChange(Scenes.LEVEL_2)) Debug.Log("Unable to change levels...");
-                //if (m_elapsedTime < m_waitTime) m_elapsedTime += Time.deltaTime;
-                //else Restate();
+                if (m_elapsedTime < m_waitTime) m_elapsedTime += Time.deltaTime;
+                else Restate();
                 break; //to implement level transitions
             case GameState.GAME_END:
                 break;
@@ -105,10 +106,11 @@ public class GameManager : MonoBehaviour {
     void Restate() {
 
         switch (m_previousState) {
-            case GameState.LEVEL_1: GM_state = GameState.LEVEL_2; ResetTimer(); break;
-            case GameState.LEVEL_2: GM_state = GameState.LEVEL_3; ResetTimer(); break;
-            case GameState.LEVEL_3: GM_state = GameState.GAME_END; ResetTimer(); break;
-            default: Debug.Log("REPORTING ERROR!!!"); break;
+
+            case GameState.LEVEL_1: ResetTimer(); GM_state = GameState.LEVEL_2;  break;
+            case GameState.LEVEL_2: ResetTimer(); GM_state = GameState.LEVEL_3;  break;
+            case GameState.LEVEL_3: ResetTimer(); GM_state = GameState.GAME_END; break;
+            default: Debug.Log("REPORTING ERROR!"); break;
         }
     }
 }

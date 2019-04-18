@@ -54,8 +54,7 @@ public class CameraManager : MonoBehaviour {
 	void Update () {
 
         if (!go_tracker) go_tracker = GameObject.FindGameObjectWithTag("Ball");
-
-            target = go_tracker.GetComponent<Transform>();
+        if (go_tracker) target = go_tracker.GetComponent<Transform>();
             Reposition();
         
         TrackScene();

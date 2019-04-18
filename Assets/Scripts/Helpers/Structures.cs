@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum GameState { START, SETUP, LEVEL_1, LEVEL_2, LEVEL_3, LEVEL_END, GAME_END, STATE_COUNT }
+public enum GameState { START, SETUP, LEVEL_1, LEVEL_2, LEVEL_3, LEVEL_END, LEVEL_NONE, GAME_END, STATE_COUNT }
 
 public enum Scenes { START, LEVEL_1, LEVEL_2, LEVEL_3, END_SCENE, SCENE_COUNT }
 
